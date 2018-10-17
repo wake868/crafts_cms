@@ -23,16 +23,17 @@ def content_new(request):
             if new_content.content_type == 'IMAGE':
                 Piece.objects.bulk_create(
                     [
-                        Piece(key="image_url", content=new_content),
-                        Piece(key="image_link", content=new_content),
-                        Piece(key="image_alt", content=new_content)
+                        Piece(key="image_url", value="@hide", content=new_content),
+                        Piece(key="image_link", upload="@hide", content=new_content),
+                        Piece(key="image_alt", upload="@hide", content=new_content),
                     ]
                 )
             elif new_content.content_type == 'TEXT':
                 Piece.objects.bulk_create(
                     [
-                        Piece(key="text_title", content=new_content),
-                        Piece(key="text_description", content=new_content),
+                        Piece(key="text_title", upload="@hide", content=new_content),
+                        Piece(key="text_description", upload="@hide", content=new_content),
+                        Piece(key="text_link", upload="@hide", content=new_content),
                     ]
                 )
             return redirect('cms:content_index', form.data.get('company'))
@@ -60,7 +61,6 @@ def content_edit(request, content_id):
             return redirect('cms:content_index', form.data.get('company'))
 
     # otherwise return a form instance for the specified content
-    # form = get_content_form(content)
     form = ContentForm(request.session, instance=content)
     formset = PieceFormset(queryset=Piece.objects.filter(content=content))
 

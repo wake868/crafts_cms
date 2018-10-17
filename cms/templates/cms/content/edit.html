@@ -35,3 +35,11 @@
         </div>
     </form>
 {% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        // s3 links to new window
+        $('a[href^="https://crafts-cms-media.s3.amazonaws.com"]').attr('target','_blank');
+    });
+</script>
+{% endblock %}
