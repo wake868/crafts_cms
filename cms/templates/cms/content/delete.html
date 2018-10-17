@@ -1,0 +1,16 @@
+{% extends 'base/layouts/base.html' %}
+{% block content %}
+    <h6 class="mt-1 text-uppercase">cms>content>delete</h6>
+    <h5 class="bg-info text-white text-uppercase p-3 ">Company: {{ content.company_id }}</h5>
+    <form action="{% url 'cms:content_delete' content.id %}" method="post">{% csrf_token %}
+        <hr />
+        <h5>Are you sure you want to delete the <span class="bg-danger text-white p-1">{{ content.name }}</span> content?</h5>
+        <hr />
+        <a href="{% url 'cms:content_index' content.company_id %}" class="btn btn-secondary mr-2">
+            <i class="fas fa-ban"></i> Cancel
+        </a>
+        <button type="submit" value="yes" class="btn btn-danger">
+            <i class="fas fa-minus-square"></i> Delete
+        </button>
+    </form>
+{% endblock %}

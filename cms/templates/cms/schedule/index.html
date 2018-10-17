@@ -1,0 +1,70 @@
+{% extends 'base/layouts/base.html' %}
+{% block content %}
+    <h6 class="mt-1 text-uppercase">cms>schedule>{{ company }}</h6>
+     <table class="table table-bordered">
+      <thead>
+        <tr>
+            <th scope="col">Company</th>
+            <th scope="col">
+                Name
+                <a href="{% url 'cms:schedule_index' company %}?sort=name" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:schedule_index' company %}?sort=-name" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">
+                StartTime
+                <a href="{% url 'cms:schedule_index' company %}?sort=start_time" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:schedule_index' company %}?sort=-start_time" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">
+                EndTime
+                <a href="{% url 'cms:schedule_index' company %}?sort=end_time" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:schedule_index' company %}?sort=-end_time" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">
+                Status
+                <a href="{% url 'cms:schedule_index' company %}?sort=status" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:schedule_index' company %}?sort=-status" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for schedule in schedules %}
+            <tr>
+                <td>{{ schedule.company }}</td>
+                <td>{{ schedule.name }}</td>
+                <td>{{ schedule.start_time }}</td>
+                <td>{{ schedule.end_time }}</td>
+                <td>{{ schedule.status }}</td>
+                <td>
+                    <a href="{% url 'cms:schedule_edit' schedule_id=schedule.id %}" class="btn btn-sm btn-secondary">
+                        <i class="far fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'cms:schedule_delete' schedule_id=schedule.id %}" class="btn btn-sm btn-danger ml-2">
+                        <i class="fas fa-minus-square"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'cms:schedule_new' %}" class="btn btn-success">
+        <i class="far fa-plus-square"></i> New Schedule
+    </a>
+{% endblock %}

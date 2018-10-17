@@ -1,0 +1,37 @@
+{% extends 'base/layouts/base.html' %}
+{% load cms_extras %}
+{% block content %}
+    <form action="{% url 'cms:content_edit' content_id=content.id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="row">
+            <div class="col-4">
+                <h6 class="mt-1 text-uppercase">cms>content>edit</h6>
+                <h5 class="bg-info text-white text-uppercase p-3 ">Company: {{ company }}</h5>
+                    {{ form }}
+                    <button type="submit" class="btn btn-success mt-3">
+                        <i class="far fa-plus-square"></i> Save
+                    </button>
+                    <a href="{% url 'cms:content_index' company %}" class="btn btn-secondary mt-3 ml-2">
+                        <i class="fas fa-ban"></i> Cancel
+                    </a>
+                    <a href="{% url 'cms:content_delete' content.id %}" class="btn btn-danger mt-3 ml-2">
+                        <i class="fas fa-minus-square"></i> Delete
+                    </a>
+            </div>
+            <div class="col-8">
+                <h6 class="mt-1 text-uppercase">cms>content>piece>edit</h6>
+                <h5 class="bg-warning text-white text-uppercase p-3">Content Pieces [ Type={{ content.content_type }} ]</h5>
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    <div class="container p-3 mb-2 cgl-piece">
+                        {% for field in form %}
+                            {% if field.value == '@hide' %}
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+{% endblock %}

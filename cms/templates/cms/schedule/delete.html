@@ -1,0 +1,16 @@
+{% extends 'base/layouts/base.html' %}
+{% block content %}
+    <h6 class="mt-1 text-uppercase">cms>schedule>delete</h6>
+    <h5 class="bg-info text-white text-uppercase p-3 ">Company: {{ schedule.company_id }}</h5>
+    <form action="{% url 'cms:schedule_delete' schedule.id %}" method="post">{% csrf_token %}
+        <hr />
+        <h5>Are you sure you want to delete the <span class="bg-danger text-white p-1">{{ schedule.name }}</span> schedule?</h5>
+        <hr />
+        <a href="{% url 'cms:schedule_index' schedule.company_id %}" class="btn btn-secondary mr-2">
+            <i class="fas fa-ban"></i> Cancel
+        </a>
+        <button type="submit" value="yes" class="btn btn-danger">
+            <i class="fas fa-minus-square"></i> Delete
+        </button>
+    </form>
+{% endblock %}

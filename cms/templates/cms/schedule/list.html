@@ -1,0 +1,17 @@
+{% extends 'base/layouts/base.html' %}
+{% block content %}
+    <h6 class="mt-1 text-uppercase">cms>schedule>list</h6>
+    <h5 class="bg-info text-white text-uppercase p-3 ">Company: {{ company }}</h5>
+    <h1>Book List</h1>
+    {% if schedule_list %}
+      <ul>
+        {% for schedule in schedule_list %}
+          <li>
+            <a href="{{ schedule.get_absolute_url }}">{{ schedule.name }}</a> ({{schedule.company}})
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+        <p>There are no books in the library.</p>
+    {% endif %}
+{% endblock %}

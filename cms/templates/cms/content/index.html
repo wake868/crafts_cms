@@ -1,0 +1,72 @@
+{% extends 'base/layouts/base.html' %}
+{% block content %}
+    <h6 class="mt-1 text-uppercase">cms>content>{{ company }}</h6>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+            <th scope="col">Company</th>
+            <th scope="col">
+                Name
+                <a href="{% url 'cms:content_index' company %}?sort=name" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:content_index' company %}?sort=-name" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">
+                PageURL
+                <a href="{% url 'cms:content_index' company %}?sort=page_url" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:content_index' company %}?sort=-page_url" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">
+                PageSection
+                <a href="{% url 'cms:content_index' company %}?sort=page_section" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:content_index' company %}?sort=-page_section" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">
+                Status
+                <a href="{% url 'cms:content_index' company %}?sort=status" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-down"></i>
+                </a>
+                <a href="{% url 'cms:content_index' company %}?sort=-status" class="btn btn-sm btn-warning">
+                    <i class="fas fa-sort-alpha-up"></i>
+                </a>
+            </th>
+            <th scope="col">Priority</th>
+            <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for content in contents %}
+            <tr>
+                <td>{{ content.company }}</td>
+                <td>{{ content.name }}</td>
+                <td>{{ content.page_url }}</td>
+                <td>{{ content.page_section }}</td>
+                <td>{{ content.status }}</td>
+                <td>{{ content.priority }}</td>
+                <td>
+                    <a href="{% url 'cms:content_edit' content_id=content.id %}" class="btn btn-sm btn-secondary">
+                        <i class="far fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'cms:content_delete' content_id=content.id %}" class="btn btn-sm btn-danger ml-2">
+                        <i class="fas fa-minus-square"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'cms:content_new' %}" class="btn btn-success">
+        <i class="far fa-plus-square"></i> New Content
+    </a>
+{% endblock %}
