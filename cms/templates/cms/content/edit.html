@@ -40,6 +40,15 @@
     $(document).ready(function(){
         // s3 links to new window
         $('a[href^="https://crafts-cms-media.s3.amazonaws.com"]').attr('target','_blank');
+
+        // add link button if the text field appears to have a url in it
+        let selector = "[id*='-value']";
+        $(selector).each(function() {
+            let link = $(this).val();
+            if (link.includes('http')) {
+                $(this).after('<a href="' + $(this).val() + '" target="_blank" class="btn btn-sm btn-secondary">Preview</a>');
+            }
+        });
     });
 </script>
 {% endblock %}
